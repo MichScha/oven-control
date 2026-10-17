@@ -1,6 +1,6 @@
 {
   "domain": "oven_control",
-  "name": "Oven Control (Ofen Innovativ)",
+  "name": "Oven Control",
   "codeowners": ["@MichScha"],
   "config_flow": true,
   "dependencies": [],

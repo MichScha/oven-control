@@ -1,4 +1,6 @@
-# Oven Control – Home Assistant integration for Ofen Innovativ stoves
+# Oven Control
+
+Home Assistant integration for stove controllers of Ofen Innovativ wood stoves.
 
 Local Home Assistant integration for wood stove controllers by Firecontrols, as sold with
 Ofen Innovativ stoves and used by the "ofeninnovativ" Android app. It talks to the controller's
@@ -17,7 +19,7 @@ Requires Home Assistant 2026.10 or newer.
 
 1. HACS → ⋮ → *Custom repositories* → add `https://github.com/MichScha/oven-control`, type
    *Integration*.
-2. Install *Oven Control (Ofen Innovativ)* and restart Home Assistant.
+2. Install *Oven Control* and restart Home Assistant.
 
 ### Manual
 
@@ -76,6 +78,13 @@ separate network for IoT devices.
 ```sh
 make test   # creates .venv with Python 3.14 (via mise) and runs the tests
 ```
+
+## Disclaimer
+
+This is an independent community project. It is not affiliated with, endorsed by or supported
+by Ofen Innovativ or Firecontrols. All product and company names are trademarks of their
+respective owners and are used here only to describe which devices the integration works with.
+Use at your own risk.
 
 ## License
 
