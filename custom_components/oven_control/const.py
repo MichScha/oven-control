@@ -1,12 +1,19 @@
 """Constants for the Oven Control integration."""
 
-from datetime import timedelta
 from typing import Final
 
 DOMAIN: Final = "oven_control"
 
-STATUS_INTERVAL: Final = timedelta(seconds=10)
-SETTINGS_INTERVAL: Final = timedelta(minutes=5)
+# Polling intervals, adjustable in the options flow.
+CONF_STATUS_INTERVAL: Final = "status_interval"
+CONF_SETTINGS_INTERVAL: Final = "settings_interval"
+DEFAULT_STATUS_INTERVAL: Final = 10  # seconds
+DEFAULT_SETTINGS_INTERVAL: Final = 5  # minutes
+# The controller serves one client at a time; faster polling starves the vendor app.
+MIN_STATUS_INTERVAL: Final = 5
+MAX_STATUS_INTERVAL: Final = 300
+MIN_SETTINGS_INTERVAL: Final = 1
+MAX_SETTINGS_INTERVAL: Final = 60
 
 # Manufacturer ids used by the controller (see the vendor app's model table).
 MANUFACTURERS: Final = {1: "UNIVERSAL", 8: "OFEN INNOVATIV"}

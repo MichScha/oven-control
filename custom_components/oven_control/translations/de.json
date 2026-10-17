@@ -187,5 +187,21 @@
     "burn_in_progress": {
       "message": "Die Uhr kann während eines Abbrands nicht gestellt werden."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Abfrage-Intervalle",
+        "description": "Die Steuerung bedient nur einen Client gleichzeitig. Kurze Intervalle können die Hersteller-App stören.",
+        "data": {
+          "status_interval": "Live-Status",
+          "settings_interval": "Einstellungen, Uhr und Alarmprotokoll"
+        },
+        "data_description": {
+          "status_interval": "Temperatur, Klappe, Phase, Tür und Alarme, in Sekunden.",
+          "settings_interval": "Brennkurve, Relais-Modus, Alarmmaske, Uhr und Alarmprotokoll, in Minuten."
+        }
+      }
+    }
   }
 }

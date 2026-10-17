@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import timedelta
 import logging
 from typing import Any
 
@@ -21,7 +22,13 @@ from .api import (
     Status,
     WaterSettings,
 )
-from .const import DOMAIN, SETTINGS_INTERVAL, STATUS_INTERVAL
+from .const import (
+    CONF_SETTINGS_INTERVAL,
+    CONF_STATUS_INTERVAL,
+    DEFAULT_SETTINGS_INTERVAL,
+    DEFAULT_STATUS_INTERVAL,
+    DOMAIN,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -67,7 +74,9 @@ class OvenStatusCoordinator(DataUpdateCoordinator[Status]):
             _LOGGER,
             config_entry=entry,
             name=f"{DOMAIN} status",
-            update_interval=STATUS_INTERVAL,
+            update_interval=timedelta(
+                seconds=entry.options.get(CONF_STATUS_INTERVAL, DEFAULT_STATUS_INTERVAL)
+            ),
         )
         self.client = client
 
@@ -96,7 +105,11 @@ class OvenSettingsCoordinator(DataUpdateCoordinator[OvenSettings]):
             _LOGGER,
             config_entry=entry,
             name=f"{DOMAIN} settings",
-            update_interval=SETTINGS_INTERVAL,
+            update_interval=timedelta(
+                minutes=entry.options.get(
+                    CONF_SETTINGS_INTERVAL, DEFAULT_SETTINGS_INTERVAL
+                )
+            ),
         )
         self.client = client
         self.water = water

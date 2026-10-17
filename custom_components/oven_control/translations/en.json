@@ -187,5 +187,21 @@
     "burn_in_progress": {
       "message": "The clock cannot be set while a burn is in progress."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Polling intervals",
+        "description": "The controller serves one client at a time. Short intervals can disturb the vendor app.",
+        "data": {
+          "status_interval": "Live status",
+          "settings_interval": "Settings, clock and alarm log"
+        },
+        "data_description": {
+          "status_interval": "Temperature, flap, phase, door and alarms, in seconds.",
+          "settings_interval": "Burn curve, relay mode, alarm mask, clock and alarm log, in minutes."
+        }
+      }
+    }
   }
 }

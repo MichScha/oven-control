@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import timedelta
 from unittest.mock import AsyncMock
 
 import pytest
@@ -9,10 +10,14 @@ import pytest
 from homeassistant.config_entries import SOURCE_USER
 from homeassistant.const import CONF_HOST
 from homeassistant.core import HomeAssistant
-from homeassistant.data_entry_flow import FlowResultType
+from homeassistant.data_entry_flow import FlowResultType, InvalidData
 
 from custom_components.oven_control.api import OvenConnectionError, OvenProtocolError
-from custom_components.oven_control.const import DOMAIN
+from custom_components.oven_control.const import (
+    CONF_SETTINGS_INTERVAL,
+    CONF_STATUS_INTERVAL,
+    DOMAIN,
+)
 
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
@@ -116,3 +121,42 @@ async def test_reconfigure_error(
     )
     assert result["type"] is FlowResultType.FORM
     assert result["errors"] == {"base": "cannot_connect"}
+
+
+async def test_options_flow(
+    hass: HomeAssistant, mock_client: AsyncMock, mock_entry: MockConfigEntry
+) -> None:
+    mock_entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(mock_entry.entry_id)
+    await hass.async_block_till_done()
+    runtime = mock_entry.runtime_data
+    assert runtime.status.update_interval == timedelta(seconds=10)
+    assert runtime.settings.update_interval == timedelta(minutes=5)
+
+    result = await hass.config_entries.options.async_init(mock_entry.entry_id)
+    assert result["type"] is FlowResultType.FORM
+    assert result["step_id"] == "init"
+    result = await hass.config_entries.options.async_configure(
+        result["flow_id"], {CONF_STATUS_INTERVAL: 30.0, CONF_SETTINGS_INTERVAL: 15.0}
+    )
+    await hass.async_block_till_done()
+    assert result["type"] is FlowResultType.CREATE_ENTRY
+    assert mock_entry.options == {CONF_STATUS_INTERVAL: 30, CONF_SETTINGS_INTERVAL: 15}
+
+    # The entry reloaded with the new intervals.
+    runtime = mock_entry.runtime_data
+    assert runtime.status.update_interval == timedelta(seconds=30)
+    assert runtime.settings.update_interval == timedelta(minutes=15)
+
+
+async def test_options_flow_rejects_too_fast(
+    hass: HomeAssistant, mock_client: AsyncMock, mock_entry: MockConfigEntry
+) -> None:
+    mock_entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(mock_entry.entry_id)
+    await hass.async_block_till_done()
+    result = await hass.config_entries.options.async_init(mock_entry.entry_id)
+    with pytest.raises(InvalidData):
+        await hass.config_entries.options.async_configure(
+            result["flow_id"], {CONF_STATUS_INTERVAL: 1, CONF_SETTINGS_INTERVAL: 5}
+        )

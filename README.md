@@ -34,6 +34,18 @@ The integration identifies the controller by its `device-id`, so a second set-up
 controller is refused. If the IP address changes, use *Reconfigure* on the integration entry
 (or add it again with the new address – the existing entry is updated).
 
+### Polling intervals
+
+*Settings → Devices & services → Oven Control → Configure* sets how often the integration
+polls:
+
+| Option | Default | Range |
+|---|---|---|
+| Live status (temperature, flap, phase, door, alarms) | 10 s | 5–300 s |
+| Settings, clock and alarm log | 5 min | 1–60 min |
+
+The entry reloads automatically when the intervals change.
+
 The controller handles **one client at a time**. While the vendor app is open on a phone, the
 controller may drop connections; the integration retries, and entities may become unavailable
 for a short time.
@@ -42,7 +54,7 @@ for a short time.
 
 | Entity | Notes |
 |---|---|
-| Flame temperature, air flap, burn phase, burn duration | updated every 10 s |
+| Flame temperature, air flap, burn phase, burn duration | live status |
 | Door, relay DG (flue-gas fan / extractor hood) | binary sensors |
 | Heating error, flame sensor error | problem sensors from the live alarm bits |
 | Latest alarm | date of the newest alarm-log entry; the last 10 entries as attributes |
@@ -56,7 +68,7 @@ Water-heating units (boiler / buffer) additionally get T2/T4/T7 temperatures, th
 pump, boiler and buffer overheat sensors, pump on/off temperature and the pump control sensor.
 They are only created when the controller reports the water variant.
 
-Settings are read every 5 minutes. The burn phase is the raw number of the controller; known
+The burn phase is the raw number of the controller; known
 so far: `1` = start, waiting for the start temperature TS; `8` = stopped (e.g. after TS was
 not reached within 45 minutes, together with a heating error).
 
@@ -75,6 +87,7 @@ separate network for IoT devices.
 
 ```sh
 make test   # creates .venv with Python 3.14 (via mise) and runs the tests
+.venv/bin/python scripts/make_icon.py   # redraws the icons in custom_components/oven_control/brand/
 ```
 
 ## Disclaimer

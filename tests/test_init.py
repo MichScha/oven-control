@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from datetime import timedelta
 from unittest.mock import AsyncMock
 
 from freezegun.api import FrozenDateTimeFactory
@@ -33,7 +34,7 @@ from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 
 from custom_components.oven_control.api import OvenConnectionError, Status
-from custom_components.oven_control.const import DOMAIN, STATUS_INTERVAL
+from custom_components.oven_control.const import DEFAULT_STATUS_INTERVAL, DOMAIN
 from custom_components.oven_control.diagnostics import (
     async_get_config_entry_diagnostics,
 )
@@ -44,6 +45,8 @@ from pytest_homeassistant_custom_component.common import (
 )
 
 from .conftest import DEVICE_ID
+
+STATUS_INTERVAL = timedelta(seconds=DEFAULT_STATUS_INTERVAL)
 
 
 async def _setup(hass: HomeAssistant, entry: MockConfigEntry) -> None:
