@@ -79,6 +79,22 @@ not reached within 45 minutes, together with a heating error).
 Not exposed on purpose: output test, alarm/archive/factory resets, resetting the burn curve,
 changing the stove model, and all Wi-Fi/access-point settings – use the vendor app for those.
 
+## Dashboard cards
+
+[`dashboards/`](dashboards) has three ready-made cards that only use built-in Home Assistant
+cards (no extra frontend plugins). Add them via *Dashboard → Edit → Add card → Manual* and
+paste the file content.
+
+| File | Content |
+|---|---|
+| [`1-kompakt.yaml`](dashboards/1-kompakt.yaml) | Tile grid: flame, flap, phase, burn duration; door/Wi-Fi badges; error tiles only while an error is active |
+| [`2-abbrand-monitor.yaml`](dashboards/2-abbrand-monitor.yaml) | Phase in words, burn duration, gauges for flame and flap, 6-hour history |
+| [`3-steuerzentrale.yaml`](dashboards/3-steuerzentrale.yaml) | Error banner, live values, the whole burn curve, relay mode and clock sync |
+
+The cards are in German and use the entity ids of a Home Assistant running in German with the
+device named "Oven" (e.g. `sensor.oven_flammentemperatur`). With another language or device
+name, replace the ids. Phase names other than 1 (start) and 8 (stopped) are guesses.
+
 ## Security
 
 The controller has **no authentication**. Anyone in the same network can read and change its

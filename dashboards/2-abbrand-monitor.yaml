@@ -1,0 +1,47 @@
+# Variant 2 "Abbrand-Monitor": gauges, phase in words and the curve of the current burn.
+# Paste via Dashboard → Edit → Add card → Manual. Entity ids assume a German Home Assistant
+# and the device name "Oven"; adjust them if yours differ.
+type: vertical-stack
+cards:
+  - type: markdown
+    text_only: true
+    content: >-
+      {% set p = states('sensor.oven_brennphase') | int(-1) %}
+      {% set names = {1: 'Anheizen – wartet auf TS', 8: 'Gestoppt'} %}
+      {% set d = states('sensor.oven_brenndauer') | int(0) %}
+      ## 🔥 {{ names.get(p, 'Stufe ' ~ p if p > 1 else 'unbekannt') }}
+
+      Brenndauer **{{ '%d:%02d' | format(d // 60, d % 60) }} h** ·
+      Tür **{{ 'offen' if is_state('binary_sensor.oven_tur', 'on') else 'zu' }}** ·
+      Relais **{{ 'an' if is_state('binary_sensor.oven_relais_dg', 'on') else 'aus' }}**
+  - type: horizontal-stack
+    cards:
+      - type: gauge
+        entity: sensor.oven_flammentemperatur
+        name: Flamme
+        min: 0
+        max: 1000
+        needle: true
+        segments:
+          - from: 0
+            color: "#90a4ae"
+          - from: 150
+            color: "#ffb300"
+          - from: 400
+            color: "#f4511e"
+          - from: 850
+            color: "#b71c1c"
+      - type: gauge
+        entity: sensor.oven_zuluftklappe
+        name: Klappe
+        min: 0
+        max: 100
+        unit: "%"
+  - type: history-graph
+    title: Letzte 6 Stunden
+    hours_to_show: 6
+    entities:
+      - entity: sensor.oven_flammentemperatur
+        name: Flamme
+      - entity: sensor.oven_zuluftklappe
+        name: Klappe

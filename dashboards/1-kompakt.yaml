@@ -1,0 +1,53 @@
+# Variant 1 "Kompakt": one tile grid for the overview page.
+# Paste via Dashboard → Edit → Add card → Manual. Entity ids assume a German Home Assistant
+# and the device name "Oven"; adjust them if yours differ.
+type: grid
+columns: 2
+square: false
+cards:
+  - type: heading
+    heading: Kaminofen
+    icon: mdi:fireplace
+    grid_options:
+      columns: full
+    badges:
+      - type: entity
+        entity: binary_sensor.oven_tur
+        show_state: true
+        color: orange
+      - type: entity
+        entity: binary_sensor.oven_wlan
+        show_state: false
+  - type: tile
+    entity: sensor.oven_flammentemperatur
+    name: Flamme
+    color: deep-orange
+  - type: tile
+    entity: sensor.oven_zuluftklappe
+    name: Klappe
+    icon: mdi:valve
+    color: blue-grey
+  - type: tile
+    entity: sensor.oven_brennphase
+    name: Phase
+    color: amber
+  - type: tile
+    entity: sensor.oven_brenndauer
+    name: Brenndauer
+    color: blue-grey
+  - type: tile
+    entity: binary_sensor.oven_heizfehler
+    name: Heizfehler
+    color: red
+    visibility:
+      - condition: state
+        entity: binary_sensor.oven_heizfehler
+        state: "on"
+  - type: tile
+    entity: binary_sensor.oven_flammenfuhlerfehler
+    name: Flammenfühler
+    color: red
+    visibility:
+      - condition: state
+        entity: binary_sensor.oven_flammenfuhlerfehler
+        state: "on"

@@ -1,0 +1,70 @@
+# Variant 3 "Steuerzentrale": alarms, live values, burn curve and settings in one card.
+# Paste via Dashboard → Edit → Add card → Manual. Entity ids assume a German Home Assistant
+# and the device name "Oven"; adjust them if yours differ.
+type: vertical-stack
+cards:
+  - type: markdown
+    visibility:
+      - condition: or
+        conditions:
+          - condition: state
+            entity: binary_sensor.oven_heizfehler
+            state: "on"
+          - condition: state
+            entity: binary_sensor.oven_flammenfuhlerfehler
+            state: "on"
+    content: >-
+      <ha-alert alert-type="error">
+      {% if is_state('binary_sensor.oven_heizfehler', 'on') %}Heizfehler – TS wurde nicht
+      erreicht. {% endif %}
+      {% if is_state('binary_sensor.oven_flammenfuhlerfehler', 'on') %}Flammenfühler
+      gestört. {% endif %}
+      </ha-alert>
+  - type: entities
+    title: Kaminofen
+    show_header_toggle: false
+    entities:
+      - entity: sensor.oven_flammentemperatur
+        name: Flammentemperatur
+      - entity: sensor.oven_zuluftklappe
+        name: Zuluftklappe
+      - entity: sensor.oven_brennphase
+        name: Brennphase
+      - entity: sensor.oven_brenndauer
+        name: Brenndauer
+      - entity: binary_sensor.oven_tur
+        name: Tür
+      - entity: binary_sensor.oven_relais_dg
+        name: Relais DG
+      - entity: sensor.oven_letzter_alarm
+        name: Letzter Alarm
+      - type: section
+        label: Brennkurve
+      - entity: number.oven_ts_starttemperatur
+        name: TS – Starttemperatur
+      - entity: number.oven_s2_klappe_in_stufe_2
+        name: S2 – Klappe Stufe 2
+      - entity: number.oven_ds3_absenkung_zu_tmax
+        name: DS3 – Absenkung Stufe 3
+      - entity: number.oven_s3_klappe_in_stufe_3
+        name: S3 – Klappe Stufe 3
+      - entity: number.oven_ds4_absenkung_zu_tmax
+        name: DS4 – Absenkung Stufe 4
+      - entity: number.oven_s4_klappe_in_stufe_4
+        name: S4 – Klappe Stufe 4
+      - entity: number.oven_ds5_absenkung_zu_tmax
+        name: DS5 – Absenkung Stufe 5
+      - entity: number.oven_s5_klappe_in_stufe_5
+        name: S5 – Klappe Stufe 5
+      - entity: number.oven_ss2_sicherheitsverzogerung_stufe_2
+        name: SS2 – Sicherheitsverzögerung
+      - entity: number.oven_szv_schliesszeitverzogerung
+        name: SZV – Schließzeitverzögerung
+      - type: section
+        label: Gerät
+      - entity: select.oven_relais_modus
+        name: Relais-Modus
+      - entity: sensor.oven_gerateuhr
+        name: Geräteuhr
+      - entity: button.oven_gerateuhr_stellen
+        name: Uhr stellen

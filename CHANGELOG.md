@@ -3,6 +3,12 @@
 All notable changes to this integration. Versions follow [Semantic Versioning](https://semver.org/);
 each version is published as a GitHub release, which HACS offers as an update.
 
+## [Unreleased]
+
+### Added
+
+- Three dashboard cards in `dashboards/` (compact tiles, burn monitor, control centre).
+
 ## [0.2.0] - 2026-10-17
 
 ### Added
