@@ -19,6 +19,10 @@ Requires Home Assistant 2026.10 or newer.
    *Integration*.
 2. Install *Oven Control* and restart Home Assistant.
 
+Updates: HACS checks the GitHub releases of this repository and shows a new version under
+*Settings → Updates* together with its changelog. Install it there and restart Home
+Assistant.
+
 ### Manual
 
 Copy `custom_components/oven_control` into the `custom_components` folder of your Home
@@ -89,6 +93,14 @@ separate network for IoT devices.
 make test   # creates .venv with Python 3.14 (via mise) and runs the tests
 .venv/bin/python scripts/make_icon.py   # redraws the icons in custom_components/oven_control/brand/
 ```
+
+## Releasing
+
+1. Add a `## [x.y.z] - date` section at the top of [CHANGELOG.md](CHANGELOG.md).
+2. `make release VERSION=x.y.z` – runs the tests, sets the version in `manifest.json`,
+   commits, tags `vx.y.z` and pushes.
+3. The *Release* workflow checks that tag and manifest version match and publishes the GitHub
+   release with the changelog section as release notes.
 
 ## Disclaimer
 
