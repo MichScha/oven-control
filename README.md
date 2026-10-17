@@ -76,3 +76,7 @@ separate network for IoT devices.
 ```sh
 make test   # creates .venv with Python 3.14 (via mise) and runs the tests
 ```
+
+## License
+
+MIT, see [LICENSE](LICENSE).
