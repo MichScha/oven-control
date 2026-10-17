@@ -1,7 +1,5 @@
 # Oven Control
 
-Home Assistant integration for stove controllers of Ofen Innovativ wood stoves.
-
 Local Home Assistant integration for wood stove controllers by Firecontrols, as sold with
 Ofen Innovativ stoves and used by the "ofeninnovativ" Android app. It talks to the controller's
 Wi-Fi module over plain HTTP in your home network – no cloud.
