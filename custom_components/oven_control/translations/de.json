@@ -1,0 +1,191 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mit der Ofensteuerung verbinden",
+        "description": "IP-Adresse der Steuerung im Heimnetz eingeben, oder 192.168.0.1 im WLAN der Steuerung.",
+        "data": {
+          "host": "Host"
+        },
+        "data_description": {
+          "host": "IP-Adresse oder Hostname der Steuerung."
+        }
+      },
+      "reconfigure": {
+        "title": "Adresse der Steuerung ändern",
+        "data": {
+          "host": "Host"
+        },
+        "data_description": {
+          "host": "IP-Adresse oder Hostname der Steuerung."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung fehlgeschlagen",
+      "not_supported": "Das Gerät sieht nicht wie eine unterstützte Ofensteuerung aus.",
+      "unknown": "Unerwarteter Fehler"
+    },
+    "abort": {
+      "already_configured": "Gerät ist bereits eingerichtet",
+      "reconfigure_successful": "Neukonfiguration erfolgreich",
+      "wrong_device": "An dieser Adresse antwortet eine andere Steuerung."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "flame_temperature": {
+        "name": "Flammentemperatur"
+      },
+      "flap": {
+        "name": "Zuluftklappe"
+      },
+      "phase": {
+        "name": "Brennphase"
+      },
+      "burn_duration": {
+        "name": "Brenndauer"
+      },
+      "alarm": {
+        "name": "Alarm-Bits"
+      },
+      "alarm2": {
+        "name": "Alarm 2"
+      },
+      "flap_pos": {
+        "name": "Klappenposition (roh)"
+      },
+      "boiler_temp": {
+        "name": "Kesseltemperatur (T2)"
+      },
+      "buffer_top_temp": {
+        "name": "Puffertemperatur oben (T4)"
+      },
+      "buffer_bottom_temp": {
+        "name": "Puffertemperatur unten (T7)"
+      },
+      "latest_alarm": {
+        "name": "Letzter Alarm"
+      },
+      "device_clock": {
+        "name": "Geräteuhr"
+      }
+    },
+    "binary_sensor": {
+      "door": {
+        "name": "Tür"
+      },
+      "relay": {
+        "name": "Relais DG"
+      },
+      "pump": {
+        "name": "Umwälzpumpe"
+      },
+      "heating_error": {
+        "name": "Heizfehler"
+      },
+      "flame_sensor_error": {
+        "name": "Flammenfühlerfehler"
+      },
+      "boiler_overheat": {
+        "name": "Kessel überhitzt"
+      },
+      "buffer_top_overheat": {
+        "name": "Puffer oben überhitzt"
+      },
+      "wifi": {
+        "name": "WLAN"
+      }
+    },
+    "number": {
+      "start_temp": {
+        "name": "TS Starttemperatur"
+      },
+      "flap2": {
+        "name": "S2 Klappe in Stufe 2"
+      },
+      "temp3": {
+        "name": "DS3 Absenkung zu Tmax"
+      },
+      "flap3": {
+        "name": "S3 Klappe in Stufe 3"
+      },
+      "temp4": {
+        "name": "DS4 Absenkung zu Tmax"
+      },
+      "flap4": {
+        "name": "S4 Klappe in Stufe 4"
+      },
+      "temp5": {
+        "name": "DS5 Absenkung zu Tmax"
+      },
+      "flap5": {
+        "name": "S5 Klappe in Stufe 5"
+      },
+      "phase2_min": {
+        "name": "SS2 Sicherheitsverzögerung Stufe 2"
+      },
+      "close_timeout": {
+        "name": "SZV Schließzeitverzögerung"
+      },
+      "pump_on_temp": {
+        "name": "Pumpe Einschalttemperatur"
+      },
+      "pump_off_hysteresis": {
+        "name": "Pumpe Ausschalthysterese"
+      }
+    },
+    "select": {
+      "relay_mode": {
+        "name": "Relais-Modus",
+        "state": {
+          "off": "Aus",
+          "hood_combustion": "Dunstabzugshaube – Verbrennung",
+          "hood_door": "Dunstabzugshaube – Tür",
+          "flue_fan_start_temp": "Rauchgassauger – TStart",
+          "flue_fan_combustion": "Rauchgassauger – Verbrennung"
+        }
+      },
+      "boiler_sensor": {
+        "name": "Fühler Pumpensteuerung",
+        "state": {
+          "t4_top": "T4 oben",
+          "t7_bottom": "T7 unten"
+        }
+      }
+    },
+    "switch": {
+      "mask_heating_error": {
+        "name": "Alarm Heizfehler"
+      },
+      "mask_flame_sensor_error": {
+        "name": "Alarm Flammenfühlerfehler"
+      },
+      "mask_boiler_overheat": {
+        "name": "Alarm Kessel überhitzt"
+      },
+      "mask_buffer_top_overheat": {
+        "name": "Alarm Puffer oben überhitzt"
+      }
+    },
+    "button": {
+      "sync_clock": {
+        "name": "Geräteuhr stellen"
+      }
+    }
+  },
+  "exceptions": {
+    "cannot_connect": {
+      "message": "Keine Verbindung zur Ofensteuerung."
+    },
+    "wrong_device": {
+      "message": "An der eingerichteten Adresse antwortet eine andere Steuerung."
+    },
+    "write_failed": {
+      "message": "Schreiben auf die Ofensteuerung fehlgeschlagen: {error}"
+    },
+    "burn_in_progress": {
+      "message": "Die Uhr kann während eines Abbrands nicht gestellt werden."
+    }
+  }
+}

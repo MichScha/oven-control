@@ -1,0 +1,65 @@
+{
+  "entity": {
+    "sensor": {
+      "flap": {
+        "default": "mdi:valve"
+      },
+      "phase": {
+        "default": "mdi:fire"
+      },
+      "burn_duration": {
+        "default": "mdi:timer-outline"
+      },
+      "alarm": {
+        "default": "mdi:alert-outline"
+      },
+      "latest_alarm": {
+        "default": "mdi:alert-circle-outline"
+      }
+    },
+    "binary_sensor": {
+      "relay": {
+        "default": "mdi:fan"
+      },
+      "pump": {
+        "default": "mdi:pump"
+      }
+    },
+    "number": {
+      "flap2": {
+        "default": "mdi:valve"
+      },
+      "flap3": {
+        "default": "mdi:valve"
+      },
+      "flap4": {
+        "default": "mdi:valve"
+      },
+      "flap5": {
+        "default": "mdi:valve"
+      },
+      "temp3": {
+        "default": "mdi:thermometer-chevron-down"
+      },
+      "temp4": {
+        "default": "mdi:thermometer-chevron-down"
+      },
+      "temp5": {
+        "default": "mdi:thermometer-chevron-down"
+      }
+    },
+    "select": {
+      "relay_mode": {
+        "default": "mdi:fan"
+      },
+      "boiler_sensor": {
+        "default": "mdi:thermometer"
+      }
+    },
+    "button": {
+      "sync_clock": {
+        "default": "mdi:clock-check-outline"
+      }
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to the stove controller",
+        "description": "Enter the IP address of the controller in your home network, or 192.168.0.1 when connected to its own Wi-Fi.",
+        "data": {
+          "host": "Host"
+        },
+        "data_description": {
+          "host": "IP address or host name of the controller."
+        }
+      },
+      "reconfigure": {
+        "title": "Change the controller address",
+        "data": {
+          "host": "Host"
+        },
+        "data_description": {
+          "host": "IP address or host name of the controller."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "not_supported": "The device does not look like a supported stove controller.",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "Device is already configured",
+      "reconfigure_successful": "Re-configuration was successful",
+      "wrong_device": "A different controller answers at this address."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "flame_temperature": {
+        "name": "Flame temperature"
+      },
+      "flap": {
+        "name": "Air flap"
+      },
+      "phase": {
+        "name": "Burn phase"
+      },
+      "burn_duration": {
+        "name": "Burn duration"
+      },
+      "alarm": {
+        "name": "Alarm bits"
+      },
+      "alarm2": {
+        "name": "Alarm 2"
+      },
+      "flap_pos": {
+        "name": "Flap position (raw)"
+      },
+      "boiler_temp": {
+        "name": "Boiler temperature (T2)"
+      },
+      "buffer_top_temp": {
+        "name": "Buffer top temperature (T4)"
+      },
+      "buffer_bottom_temp": {
+        "name": "Buffer bottom temperature (T7)"
+      },
+      "latest_alarm": {
+        "name": "Latest alarm"
+      },
+      "device_clock": {
+        "name": "Device clock"
+      }
+    },
+    "binary_sensor": {
+      "door": {
+        "name": "Door"
+      },
+      "relay": {
+        "name": "Relay DG"
+      },
+      "pump": {
+        "name": "Circulation pump"
+      },
+      "heating_error": {
+        "name": "Heating error"
+      },
+      "flame_sensor_error": {
+        "name": "Flame sensor error"
+      },
+      "boiler_overheat": {
+        "name": "Boiler overheat"
+      },
+      "buffer_top_overheat": {
+        "name": "Buffer top overheat"
+      },
+      "wifi": {
+        "name": "Wi-Fi"
+      }
+    },
+    "number": {
+      "start_temp": {
+        "name": "TS start temperature"
+      },
+      "flap2": {
+        "name": "S2 flap in stage 2"
+      },
+      "temp3": {
+        "name": "DS3 drop to Tmax"
+      },
+      "flap3": {
+        "name": "S3 flap in stage 3"
+      },
+      "temp4": {
+        "name": "DS4 drop to Tmax"
+      },
+      "flap4": {
+        "name": "S4 flap in stage 4"
+      },
+      "temp5": {
+        "name": "DS5 drop to Tmax"
+      },
+      "flap5": {
+        "name": "S5 flap in stage 5"
+      },
+      "phase2_min": {
+        "name": "SS2 safety delay in stage 2"
+      },
+      "close_timeout": {
+        "name": "SZV closing delay"
+      },
+      "pump_on_temp": {
+        "name": "Pump on temperature"
+      },
+      "pump_off_hysteresis": {
+        "name": "Pump off hysteresis"
+      }
+    },
+    "select": {
+      "relay_mode": {
+        "name": "Relay mode",
+        "state": {
+          "off": "Off",
+          "hood_combustion": "Extractor hood – combustion",
+          "hood_door": "Extractor hood – door",
+          "flue_fan_start_temp": "Flue-gas fan – start temperature",
+          "flue_fan_combustion": "Flue-gas fan – combustion"
+        }
+      },
+      "boiler_sensor": {
+        "name": "Pump control sensor",
+        "state": {
+          "t4_top": "T4 top",
+          "t7_bottom": "T7 bottom"
+        }
+      }
+    },
+    "switch": {
+      "mask_heating_error": {
+        "name": "Alarm heating error"
+      },
+      "mask_flame_sensor_error": {
+        "name": "Alarm flame sensor error"
+      },
+      "mask_boiler_overheat": {
+        "name": "Alarm boiler overheat"
+      },
+      "mask_buffer_top_overheat": {
+        "name": "Alarm buffer top overheat"
+      }
+    },
+    "button": {
+      "sync_clock": {
+        "name": "Sync device clock"
+      }
+    }
+  },
+  "exceptions": {
+    "cannot_connect": {
+      "message": "Cannot connect to the stove controller."
+    },
+    "wrong_device": {
+      "message": "A different controller answers at the configured address."
+    },
+    "write_failed": {
+      "message": "Writing to the stove controller failed: {error}"
+    },
+    "burn_in_progress": {
+      "message": "The clock cannot be set while a burn is in progress."
+    }
+  }
+}
