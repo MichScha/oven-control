@@ -41,7 +41,23 @@
         "name": "Zuluftklappe"
       },
       "phase": {
-        "name": "Brennphase"
+        "name": "Brennphase",
+        "state": {
+          "idle": "Bereit",
+          "start": "Start",
+          "heating_up": "Aufheizen",
+          "stage_2": "Stufe S2",
+          "stage_3": "Stufe S3",
+          "stage_4": "Stufe S4",
+          "stage_5": "Stufe S5",
+          "finished": "Beendet",
+          "other": "Sonstige"
+        },
+        "state_attributes": {
+          "raw_phase": {
+            "name": "Rohwert Phase"
+          }
+        }
       },
       "burn_duration": {
         "name": "Brenndauer"

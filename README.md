@@ -72,9 +72,20 @@ Water-heating units (boiler / buffer) additionally get T2/T4/T7 temperatures, th
 pump, boiler and buffer overheat sensors, pump on/off temperature and the pump control sensor.
 They are only created when the controller reports the water variant.
 
-The burn phase is the raw number of the controller; known
-so far: `1` = start, waiting for the start temperature TS; `8` = stopped (e.g. after TS was
-not reached within 45 minutes, together with a heating error).
+The burn phase is a text sensor; the controller's raw number is kept in the `raw_phase`
+attribute. Mapped from a full live burn:
+
+| State | Raw | Meaning |
+|---|---|---|
+| `idle` | 0 | ready; opening and closing the door starts a burn |
+| `start` | 1 | flap fully open, waiting for the fire to catch (after 45 min without reaching TS → `finished` with a heating error) |
+| `heating_up` | 2 | flap fully open until the start temperature TS |
+| `stage_2` … `stage_5` | 3–6 | flap stages S2–S5; S3–S5 begin when the temperature falls below DS3–DS5 % of the maximum |
+| `finished` | 8 | flap closed after the closing delay SZV; burn duration frozen |
+| `other` | any other | not seen yet (e.g. 7) |
+
+Automations and templates that compared the old numeric state (≤ 0.2.0) must use the new
+states or `state_attr('sensor.…_burn_phase', 'raw_phase')`.
 
 Not exposed on purpose: output test, alarm/archive/factory resets, resetting the burn curve,
 changing the stove model, and all Wi-Fi/access-point settings – use the vendor app for those.

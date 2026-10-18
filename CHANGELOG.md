@@ -8,6 +8,14 @@ each version is published as a GitHub release, which HACS offers as an update.
 ### Added
 
 - Three dashboard cards in `dashboards/` (compact tiles, burn monitor, control centre).
+- Icons per burn phase.
+
+### Changed
+
+- **Breaking:** the burn phase is now a text sensor (`idle`, `start`, `heating_up`,
+  `stage_2` … `stage_5`, `finished`, `other`) with translated names, mapped from a full live
+  burn. The raw number moved to the `raw_phase` attribute; automations that compared the
+  numeric state need updating.
 
 ## [0.2.0] - 2026-10-17
 

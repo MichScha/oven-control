@@ -5,7 +5,13 @@
         "default": "mdi:valve"
       },
       "phase": {
-        "default": "mdi:fire"
+        "default": "mdi:fire",
+        "state": {
+          "idle": "mdi:fireplace-off",
+          "finished": "mdi:fire-off",
+          "start": "mdi:fire-circle",
+          "heating_up": "mdi:thermometer-chevron-up"
+        }
       },
       "burn_duration": {
         "default": "mdi:timer-outline"

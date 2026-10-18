@@ -19,6 +19,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.util import dt as dt_util
 
 from .api import Status
+from .const import PHASE_OPTIONS, PHASE_OTHER, PHASE_STATES
 from .coordinator import (
     OvenConfigEntry,
     OvenRuntimeData,
@@ -37,7 +38,8 @@ RECENT_ALARMS = 10
 class OvenStatusSensorDescription(SensorEntityDescription):
     """Sensor fed by the live status."""
 
-    value_fn: Callable[[Status], int | None]
+    value_fn: Callable[[Status], int | str | None]
+    attrs_fn: Callable[[Status], dict[str, Any]] | None = None
     water_only: bool = False
 
 
@@ -72,7 +74,10 @@ STATUS_SENSORS: tuple[OvenStatusSensorDescription, ...] = (
     OvenStatusSensorDescription(
         key="phase",
         translation_key="phase",
-        value_fn=lambda s: s.phase,
+        device_class=SensorDeviceClass.ENUM,
+        options=PHASE_OPTIONS,
+        value_fn=lambda s: PHASE_STATES.get(s.phase, PHASE_OTHER),
+        attrs_fn=lambda s: {"raw_phase": s.phase},
     ),
     OvenStatusSensorDescription(
         key="burn_duration",
@@ -142,9 +147,16 @@ class OvenStatusSensor(OvenEntity[OvenStatusCoordinator], SensorEntity):
         self.entity_description = description
 
     @property
-    def native_value(self) -> int | None:
+    def native_value(self) -> int | str | None:
         """Return the value."""
         return self.entity_description.value_fn(self.coordinator.data)
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return extra attributes, e.g. the raw phase number."""
+        if (fn := self.entity_description.attrs_fn) is None:
+            return None
+        return fn(self.coordinator.data)
 
 
 class OvenLatestAlarmSensor(OvenEntity[OvenSettingsCoordinator], SensorEntity):

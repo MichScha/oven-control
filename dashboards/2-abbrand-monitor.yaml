@@ -6,10 +6,10 @@ cards:
   - type: markdown
     text_only: true
     content: >-
-      {% set p = states('sensor.oven_brennphase') | int(-1) %}
-      {% set names = {1: 'Anheizen – wartet auf TS', 8: 'Gestoppt'} %}
+      {% set p = states('sensor.oven_brennphase') %}
+      {% set hints = {'start': ' – wartet auf Flamme', 'heating_up': ' – bis TS'} %}
       {% set d = states('sensor.oven_brenndauer') | int(0) %}
-      ## 🔥 {{ names.get(p, 'Stufe ' ~ p if p > 1 else 'unbekannt') }}
+      ## 🔥 {{ state_translated('sensor.oven_brennphase') }}{{ hints.get(p, '') }}
 
       Brenndauer **{{ '%d:%02d' | format(d // 60, d % 60) }} h** ·
       Tür **{{ 'offen' if is_state('binary_sensor.oven_tur', 'on') else 'zu' }}** ·

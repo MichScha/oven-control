@@ -98,7 +98,9 @@ async def test_entities(
     await _setup(hass, mock_entry)
     assert hass.states.get("sensor.oven_flame_temperature").state == "93"
     assert hass.states.get("sensor.oven_air_flap").state == "100"
-    assert hass.states.get("sensor.oven_burn_phase").state == "1"
+    phase = hass.states.get("sensor.oven_burn_phase")
+    assert phase.state == "start"
+    assert phase.attributes["raw_phase"] == 1
     assert hass.states.get("sensor.oven_burn_duration").state == "3"
     assert hass.states.get("binary_sensor.oven_door").state == STATE_OFF
     assert hass.states.get("binary_sensor.oven_heating_error").state == STATE_OFF
@@ -258,6 +260,29 @@ async def test_sync_clock(
         blocking=True,
     )
     mock_client.set_clock.assert_awaited_once()
+
+
+@pytest.mark.parametrize(
+    ("raw", "state"),
+    [(0, "idle"), (2, "heating_up"), (3, "stage_2"), (6, "stage_5"), (8, "finished"), (7, "other")],
+)
+async def test_phase_states(
+    hass: HomeAssistant,
+    mock_client: AsyncMock,
+    mock_entry: MockConfigEntry,
+    freezer: FrozenDateTimeFactory,
+    raw: int,
+    state: str,
+) -> None:
+    await _setup(hass, mock_entry)
+    mock_client.get_status.return_value = replace(mock_client.get_status.return_value, phase=raw)
+    freezer.tick(STATUS_INTERVAL)
+    async_fire_time_changed(hass)
+    await hass.async_block_till_done()
+
+    phase = hass.states.get("sensor.oven_burn_phase")
+    assert phase.state == state
+    assert phase.attributes["raw_phase"] == raw
 
 
 async def test_sync_clock_refused_during_burn(

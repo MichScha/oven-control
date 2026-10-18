@@ -41,7 +41,23 @@
         "name": "Air flap"
       },
       "phase": {
-        "name": "Burn phase"
+        "name": "Burn phase",
+        "state": {
+          "idle": "Idle",
+          "start": "Start",
+          "heating_up": "Heating up",
+          "stage_2": "Stage S2",
+          "stage_3": "Stage S3",
+          "stage_4": "Stage S4",
+          "stage_5": "Stage S5",
+          "finished": "Finished",
+          "other": "Other"
+        },
+        "state_attributes": {
+          "raw_phase": {
+            "name": "Raw phase"
+          }
+        }
       },
       "burn_duration": {
         "name": "Burn duration"

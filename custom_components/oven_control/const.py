@@ -29,3 +29,17 @@ RELAY_MODES: Final = [
 
 # Buffer sensor that controls the pump (water variant), cmd 0x20/0x21.
 BOILER_SENSORS: Final = ["t4_top", "t7_bottom"]
+
+# Burn phases of the live status (low nibble), measured during a full burn.
+PHASE_STATES: Final = {
+    0: "idle",
+    1: "start",
+    2: "heating_up",
+    3: "stage_2",
+    4: "stage_3",
+    5: "stage_4",
+    6: "stage_5",
+    8: "finished",
+}
+PHASE_OTHER: Final = "other"
+PHASE_OPTIONS: Final = [*PHASE_STATES.values(), PHASE_OTHER]
