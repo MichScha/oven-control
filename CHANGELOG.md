@@ -3,7 +3,7 @@
 All notable changes to this integration. Versions follow [Semantic Versioning](https://semver.org/);
 each version is published as a GitHub release, which HACS offers as an update.
 
-## [Unreleased]
+## [0.3.0] - 2026-10-18
 
 ### Added
 
